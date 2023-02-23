@@ -2,6 +2,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+´´ QUe fique registrados as copias dos css @tailwind para o arquivo global;
+ainda implementação do import em arquivo \_app.js.
+#$-tutorial segue:
+https://codersteps.com/guides/setting-up-a-new-next-js-project-with-tailwind-css
+
 First, run the development server:
 
 ```bash
