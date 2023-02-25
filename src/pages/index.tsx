@@ -1,19 +1,26 @@
+import ColectionsFirebase from "@/backend/db/ColectionsFirebase";
 import { Botao } from "@/components/Botao";
 import Formulario from "@/components/Formulario";
 import Layout from "@/components/Layout";
 import Tabela from "@/components/Tabela";
 import Cliente from "@/core/Cliente";
+import ClienteRepositorio from "@/core/ClienteRepositorio";
 import { useState } from "react";
 
 export default function Home() {
+  const repo: ClienteRepositorio = new ColectionsFirebase();
+
   const [view, setView] = useState<"tabela" | "form">("tabela");
   const [nclient, setNclient] = useState(Cliente.vazio);
 
-  const clients = [
-    new Cliente("João", 42, "1"),
-    new Cliente("Miguel", 4, "2"),
-    new Cliente("Lucia", 65, "3"),
-  ];
+  const [clients, setClients] = useState<Cliente[]>([]);
+
+  function obterTodos() {
+    repo.obterTodos().then((clientes) => {
+      setClients(clientes);
+      setView("tabela");
+    });
+  }
 
   function editarCliente(cliente: Cliente) {
     console.log("comando selecionada " + cliente.nome);
@@ -22,18 +29,18 @@ export default function Home() {
   }
 
   function novoClient() {
-    console.log("comando novoCliente ");
     setNclient(Cliente.vazio());
     setView("form");
   }
 
-  function excluirCliente(cliente: Cliente) {
-    console.log("comando exclusão ativado" + cliente.nome);
+  async function excluirCliente(cliente: Cliente) {
+    await repo.excluir(cliente);
+    obterTodos();
   }
 
-  function Alterar(cliente: Cliente) {
-    console.log("Alterar cliente " + cliente.nome + cliente.idade);
-    setView("tabela");
+  async function Alterar(cliente: Cliente) {
+    await repo.salvar(cliente);
+    obterTodos();
   }
 
   {
