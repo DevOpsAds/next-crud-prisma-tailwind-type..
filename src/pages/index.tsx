@@ -1,4 +1,4 @@
-import ColectionsFirebase from "@/backend/db/ColectionsFirebase";
+import ColectionsFirebase from "@/backend/database/ColectionsFirebase";
 import { Botao } from "@/components/Botao";
 import Formulario from "@/components/Formulario";
 import Layout from "@/components/Layout";
